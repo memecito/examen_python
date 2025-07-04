@@ -1,7 +1,9 @@
-from task import Tarea
-import menu
+from lib.task import Tarea
+from utilidad.menu import Menu
 
-nueva_tarea=Tarea()
-men= menu()
+
+men= Menu()
+lista_tareas:list=list()
+
 def main():
     men.inicio()
