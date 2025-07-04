@@ -10,9 +10,9 @@ class ManejadorTarea:
         # creamos una tarea para cada item de la lista pasada
         self.tareas = [ Tarea.para_tarea(t) for t in tareas]
         
-    def añadir_tarea(self, nombre, fin_tarea, prioridad):
+    def añadir_tarea(self, nombre,  prioridad):
         id=len(self.tareas)+1
-        nueva_tarea=Tarea(id,nombre, fin_tarea, prioridad)
+        nueva_tarea=Tarea(id,nombre, prioridad)
         self.tareas.append(nueva_tarea)
         
     def ver_tareas(self):
@@ -25,6 +25,8 @@ class ManejadorTarea:
                 tarea.completada=True        
                 
         # Opcion 2
-        pos_tarea=self.tareas.index((tarea.id==id_tarea))
-        self.tareas[pos_tarea][completada]=True
+        # pos_tarea=self.tareas.index((tarea.id==id_tarea))
+        # self.tareas[pos_tarea][completada]=True
         
+    def tareas_a_diccionario(self):
+        return [tarea.a_diccionario() for tarea in self.tareas]        

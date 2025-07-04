@@ -1,6 +1,5 @@
-from lib.task import Tarea
-from lib.manejador_tareas import ManejadorTarea
 from utilidad.menu import Menu
+from lib.manejador_tareas import ManejadorTarea
 from utilidad.datos import Manejador_archivos
 import os
 
@@ -13,12 +12,13 @@ def limpiar_consola():
 
 def main():
     limpiar_consola()
-    archivos= Manejador_archivos('to-do')
+    archivos= Manejador_archivos('lista')
     tareas= archivos.abrir_json()
     
     manejador= ManejadorTarea(tareas)
     
     menu= Menu(manejador, archivos)
     menu.inicio()
+    
 if __name__=="__main__":
     main()

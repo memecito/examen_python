@@ -1,0 +1,14 @@
+[
+    {
+        "nombre": "Limpiar",
+        "prioridad": "0",
+        "completada": false,
+        "nota": ""
+    },
+    {
+        "nombre": "Cocinar",
+        "prioridad": "0",
+        "completada": false,
+        "nota": ""
+    }
+]

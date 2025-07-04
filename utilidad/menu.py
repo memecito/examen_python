@@ -1,4 +1,3 @@
-from datetime import datetime
 import os
 from colorama import init, Fore, Back, Style
 #from lib.task import Tarea
@@ -35,7 +34,8 @@ class Menu:
                     elif opc=='4':
                         print('opcion 4') 
                     elif opc=='5':
-                        print('opcion 5 adios') 
+                        self.cerrar_programa()
+                        break
                 except Exception as e:
                     print(f'Error: {e}')
            
@@ -44,7 +44,14 @@ class Menu:
             
     def añadir_tareas(self):
         nombre=input('Nombre Tarea:')
-        prioridad=input('Prioridad:')
-        fecha=input('Fecha de finalizacion:')
-        fecha=datetime.fromisoformat(fecha)
+        prioridad=input('Prioridad:')       
         self.manejador.añadir_tarea(nombre, prioridad)
+
+    def mostrar_tareas(self):
+        pass
+    
+    def cerrar_programa(self):
+        tareas= self.manejador.tareas_a_diccionario()
+        self.manejador_archivo.guardar_archivo_json(tareas)
+        print('opcion 5 adios') 
+        
