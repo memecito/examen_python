@@ -4,7 +4,7 @@ import os
 # Definicion de clase para el trabajo con archivos
 class Manejador_archivos:
 
-    def __init__(self, ruta:str='./', nombre:str='to-do'):
+    def __init__(self, nombre:str, ruta:str='./datos/'):
         self.ruta=ruta
         self.nombre=nombre
         self.ruta_completa=ruta+nombre       
@@ -34,6 +34,8 @@ class Manejador_archivos:
 
 # Guardar archivo
     def guardar_archivo_json(self, tareas):
+        if not os.path.exists(self.ruta):
+            os.makedirs(self.ruta)
         with open(self.ruta_completa+'.json', 'w') as file:
             json.dump(tareas, file, indent=4)
             print(f'datos guardados {self.ruta_completa}.json')
