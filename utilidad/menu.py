@@ -18,8 +18,8 @@ class Menu:
             os.system("clear")
 
     def inicio(self):
-            self.limpiar()
             while True:
+                self.limpiar()
                 print(
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
                 )
@@ -43,14 +43,21 @@ class Menu:
    
             
     def añadir_tareas(self):
+        self.limpiar()
         nombre=input('Nombre Tarea:')
+        print('-1 Baja\n0 Normal\n1 Alta\n3 o mas: Para Ayer')
         prioridad=input('Prioridad:')       
         self.manejador.añadir_tarea(nombre, prioridad)
 
     def mostrar_tareas(self):
+        self.limpiar()
         tareas_guadadas= self.manejador.tareas_a_diccionario()
+        print('Prioridad:   Nombre:      Estado:     Notas:')
         for tarea in tareas_guadadas:
-            print(tarea)
+            tarea_tex=self.prioridades(tarea['prioridad'])+'\t'+tarea['nombre']+'\t'+self.completada(tarea['completada'])+'\t'+tarea['nota']            
+            print(tarea_tex)
+            
+        input('Pulse intro para continuar')
     
     def cerrar_programa(self):
         tareas= self.manejador.tareas_a_diccionario()
@@ -59,3 +66,24 @@ class Menu:
         self.manejador_archivo.guardar_archivo_csv(tareas)
         print('Adios') 
         
+        
+    def prioridades(otro,num)->str:
+        num=int(num)
+        result=''
+        if num==-1:
+            result='Baja'
+        elif num==0:
+            result='Normal'
+        elif num==1:
+            result='Alta'
+        elif num>=2:
+            result='Para ayer'
+        else:
+            result='Vaya, no tienes prisas...'
+        return result
+    
+    def completada(otro,estado:bool)->str:
+        if estado==True:
+            return 'Completada'
+        else:
+            return 'Sin Completar'

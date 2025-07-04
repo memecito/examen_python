@@ -4,14 +4,8 @@ from utilidad.datos import Manejador_archivos
 import os
 
 
-def limpiar_consola():
-        if os.name == "nt":
-            os.system("cls")
-        else:
-            os.system("clear")
 
 def main():
-    limpiar_consola()
     archivos= Manejador_archivos('lista')
     tareas= archivos.abrir_json()
 
