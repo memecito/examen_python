@@ -18,6 +18,7 @@ class Menu:
             os.system("clear")
 
     def inicio(self):
+            self.limpiar()
             while True:
                 print(
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
@@ -55,6 +56,6 @@ class Menu:
         tareas= self.manejador.tareas_a_diccionario()
         
         self.manejador_archivo.guardar_archivo_json(tareas)
-        # self.manejador_archivo.guardar_archivo_csv(tareas)
+        self.manejador_archivo.guardar_archivo_csv(tareas)
         print('Adios') 
         

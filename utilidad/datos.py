@@ -35,7 +35,6 @@ class Manejador_archivos:
 
 # Guardar tareas en archivo json
     def guardar_archivo_json(self, tareas):
-        print('Tareas al cerrar el programa\n:',tareas)
 
         if not os.path.exists(self.ruta):
             os.makedirs(self.ruta)
@@ -46,14 +45,20 @@ class Manejador_archivos:
 # Guardar tareas en CSV
 
     def guardar_archivo_csv(self, tareas:list):
+        print('muestra de encabezados: ',tareas[0].keys())
         encabezados= tareas[0].keys() if tareas else ['id','nombre', 'prioridad','completada','nota']
-        encabezados2= OrderedDict(tareas[0])
-        print('Encabezados para guardar csv\n', encabezados)
+        
         if not os.path.exists(self.ruta):
             os.makedirs(self.ruta)
-        with open(self.ruta_completa+'.csv',mode='w', newline="") as archivo_csv:
-            escritor_csv=csv.DictWriter(archivo_csv, fieldnames=encabezados2)
-            escritor_csv.writeheader()
-            escritor_csv.writerow(tareas)
+        try:
+            with open(self.ruta_completa+'.csv',mode='w', newline="") as archivo_csv:
+                escritor_csv=csv.DictWriter(archivo_csv, fieldnames=encabezados)
+                print(escritor_csv.writeheader())
+                escritor_csv.writerows(tareas)
+                print('escritor_csv\n', escritor_csv)
+        except Exception as error:
+            print('Error al guardad el csv:\n',error)
             
+        
+        
             
