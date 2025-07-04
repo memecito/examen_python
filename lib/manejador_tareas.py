@@ -8,10 +8,11 @@ class ManejadorTarea:
     def __init__ (self, tareas=[]):
         # inicializamos una lista de tareas
         # creamos una tarea para cada item de la lista pasada
-        self.tareas = [ Tarea.para_tarea(t) for t in tareas]
+        self.tareas = [ Tarea.desde_diccionario(t) for t in tareas]
         
     def añadir_tarea(self, nombre,  prioridad):
-        id=len(self.tareas)+1
+        id=len(self.tareas)
+        id+=1
         nueva_tarea=Tarea(id,nombre, prioridad)
         self.tareas.append(nueva_tarea)
         

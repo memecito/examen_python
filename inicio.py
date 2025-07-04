@@ -14,7 +14,7 @@ def main():
     limpiar_consola()
     archivos= Manejador_archivos('lista')
     tareas= archivos.abrir_json()
-    
+    print('Tareas al cargar el programa\n:',tareas)
     manejador= ManejadorTarea(tareas)
     
     menu= Menu(manejador, archivos)

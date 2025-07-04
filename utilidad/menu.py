@@ -18,7 +18,6 @@ class Menu:
             os.system("clear")
 
     def inicio(self):
-            self.limpiar()
             while True:
                 print(
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
@@ -26,7 +25,7 @@ class Menu:
                 try: 
                     opc = input()
                     if opc=='1':
-                        print('opcion 1')    
+                        self.mostrar_tareas()
                     elif opc=='2':
                         self.añadir_tareas()
                     elif opc=='3':
@@ -48,10 +47,14 @@ class Menu:
         self.manejador.añadir_tarea(nombre, prioridad)
 
     def mostrar_tareas(self):
-        pass
+        tareas_guadadas= self.manejador.tareas_a_diccionario()
+        for tarea in tareas_guadadas:
+            print(tarea)
     
     def cerrar_programa(self):
         tareas= self.manejador.tareas_a_diccionario()
+        
         self.manejador_archivo.guardar_archivo_json(tareas)
-        print('opcion 5 adios') 
+        # self.manejador_archivo.guardar_archivo_csv(tareas)
+        print('Adios') 
         
