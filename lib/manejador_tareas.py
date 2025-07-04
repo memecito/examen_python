@@ -11,10 +11,14 @@ class ManejadorTarea:
         self.tareas = [ Tarea.desde_diccionario(t) for t in tareas]
         
     def añadir_tarea(self, nombre,  prioridad):
-        id=len(self.tareas)
+        # si dejaramos como identificador la longitud puede darse el caso de tener identificadores repetidos
+        id=self.tareas[len(self.tareas)]['id']
         id+=1
         nueva_tarea=Tarea(id,nombre, prioridad)
         self.tareas.append(nueva_tarea)
+        
+    def eliminar_tarea(self, tarea_id):
+        self.tareas= [tarea for tarea in self.tareas if tarea.id!=tarea_id]
         
     def ver_tareas(self):
         return self.tareas

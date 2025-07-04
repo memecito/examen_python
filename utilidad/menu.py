@@ -30,9 +30,9 @@ class Menu:
                     elif opc=='2':
                         self.añadir_tareas()
                     elif opc=='3':
-                        print('opcion 3')    
+                        pass
                     elif opc=='4':
-                        print('opcion 4') 
+                        self.eliminar_tarea()                    
                     elif opc=='5':
                         self.cerrar_programa()
                         break
@@ -55,9 +55,24 @@ class Menu:
         print('Prioridad:   Nombre:      Estado:     Notas:')
         for tarea in tareas_guadadas:
             tarea_tex=self.prioridades(tarea['prioridad'])+'\t'+tarea['nombre']+'\t'+self.completada(tarea['completada'])+'\t'+tarea['nota']            
-            print(tarea_tex)
-            
+            print(tarea_tex)            
         input('Pulse intro para continuar')
+        
+    def muestra_reducida_tareas(self):
+        # self.limpiar()
+        tareas_guadadas= self.manejador.tareas_a_diccionario()
+        print('id\tNombre:')
+        for tarea in tareas_guadadas:
+            tarea_tex=tarea['id']+'\t'+tarea['nombre']      
+            print(tarea_tex)            
+        
+        
+    def eliminar_tarea(self):
+        self.muestra_reducida_tareas()
+        opc=input('Introduce el numero de la tarea: ')
+        self.manejador.eliminar_tarea(opc)
+        input('Presione intro para continuar')
+        
     
     def cerrar_programa(self):
         tareas= self.manejador.tareas_a_diccionario()
