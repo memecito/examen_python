@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from datetime import datetime
 import json
 import csv
 import os
@@ -26,6 +27,16 @@ class Manejador_archivos:
         with open(self.ruta_completa+'.json', 'w') as archivo_json:
             json.dump('', archivo_json, indent=4)
         print('Archivo vacio creado')
+
+# Crear un archivo de log para tener los fallos
+    def logs(self, error):
+        carpeta_log='./reg'
+        ruta_log=os.path.join(carpeta_log,'error.log')
+        if not os.path.exists(carpeta_log):
+            os.mkdirs(carpeta_log)
+        with open(ruta_log,'a', encoding='utf-8') as file_log:
+            marca_tiempo=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            file_log.write(f"[{marca_tiempo}] {error}\n")
 
     
     

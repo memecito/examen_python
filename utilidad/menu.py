@@ -41,6 +41,7 @@ class Menu:
                         self.cerrar_programa()
                         break
                 except Exception as e:
+                    Manejador_archivos.logs(e)
                     print(f'Error: {e}')
                     input('Presione una tecla para continuar')
            
