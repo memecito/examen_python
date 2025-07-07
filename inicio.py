@@ -1,6 +1,18 @@
-from lib.task import Tarea
 from utilidad.menu import Menu
+from lib.manejador_tareas import ManejadorTarea
+from utilidad.datos import Manejador_archivos
+import os
 
-men= Menu()
+
+
 def main():
-    men.inicio()
+    archivos= Manejador_archivos('lista')
+    tareas= archivos.abrir_json()
+
+    manejador= ManejadorTarea(tareas)
+    
+    menu= Menu(manejador, archivos)
+    menu.inicio()
+    
+if __name__=="__main__":
+    main()
