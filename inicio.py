@@ -1,7 +1,6 @@
 from utilidad.menu import Menu
 from lib.manejador_tareas import ManejadorTarea
 from utilidad.datos import Manejador_archivos
-import os
 
 
 

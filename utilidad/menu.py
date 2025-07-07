@@ -1,11 +1,13 @@
+from lib.manejador_tareas import ManejadorTarea
+from utilidad.datos import Manejador_archivos
 import os
 from colorama import init, Fore, Back, Style
-#from lib.task import Tarea
+
 
 
 class Menu:
     
-    def __init__(self, manejador, manejador_archivo):
+    def __init__(self, manejador:ManejadorTarea, manejador_archivo:Manejador_archivos):
         init(autoreset=True)
         self.manejador=manejador
         self.manejador_archivo=manejador_archivo
@@ -19,8 +21,9 @@ class Menu:
 
     def inicio(self):
             while True:
-                self.limpiar()
+                # self.limpiar()
                 print(
+                    Fore.GREEN+
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
                 )
                 try: 
@@ -32,7 +35,7 @@ class Menu:
                     elif opc=='3':
                         pass
                     elif opc=='4':
-                        self.eliminar_tarea()                    
+                        pass
                     elif opc=='5':
                         self.cerrar_programa()
                         break
@@ -43,14 +46,14 @@ class Menu:
    
             
     def añadir_tareas(self):
-        self.limpiar()
+        # self.limpiar()
         nombre=input('Nombre Tarea:')
         print('-1 Baja\n0 Normal\n1 Alta\n3 o mas: Para Ayer')
         prioridad=input('Prioridad:')       
         self.manejador.añadir_tarea(nombre, prioridad)
 
     def mostrar_tareas(self):
-        self.limpiar()
+        # self.limpiar()
         tareas_guadadas= self.manejador.tareas_a_diccionario()
         print('Prioridad:   Nombre:      Estado:     Notas:')
         for tarea in tareas_guadadas:
