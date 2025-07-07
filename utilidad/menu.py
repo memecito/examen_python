@@ -4,6 +4,7 @@ import os
 class Menu:
 
     def __init__(self):
+        self.inicio()
         pass
 
     def limpiar(self):
@@ -12,8 +13,8 @@ class Menu:
         else:
             os.system("clear")
 
-    def inicio():
-        limpiar()
+    def inicio(self):
+        self.limpiar()
         print(
             "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
         )
