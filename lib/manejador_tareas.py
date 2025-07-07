@@ -33,15 +33,9 @@ class ManejadorTarea:
     
     def eliminar_tarea(self, tarea_id:int):
         contador = len(self.tareas)  # Guardamos el número de tareas antes
-        print(Fore.RED+'Atencion va a eliminar una tarea:')
-        posicion=self.tareas.index(Tarea.id==tarea_id)
-        print(Fore.BLUE+self.tareas)
-        opc=input(Fore.RED+'Esta seguro S/N:')
-        if opc.lower()=='s':
-            self.tareas = [tarea for tarea in self.tareas if tarea.id != int(tarea_id)]
-           
-        elif opc.lower()=='n':
-            print('No se elimina la tarea')
+        
+        self.tareas = [tarea for tarea in self.tareas if tarea.id != int(tarea_id)]
+
 
         if len(self.tareas) < contador:
             return True  # Sí eliminó una tarea
@@ -51,6 +45,9 @@ class ManejadorTarea:
         
     def ver_tareas(self):
         return self.tareas
+    
+ 
+            
     
     def completar_tareas(self, id_tarea):
         tareas_completadas=[]

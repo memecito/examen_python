@@ -21,7 +21,7 @@ class Menu:
 
     def inicio(self):
             while True:
-                # self.limpiar()
+                self.limpiar()
                 print(
                     Fore.GREEN+
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
@@ -48,16 +48,22 @@ class Menu:
   
 
     def mostrar_tareas(self):
-        # self.limpiar()
+        self.limpiar()
         tareas_guadadas= self.manejador.tareas_a_diccionario()
         print('Prioridad:   Nombre:      Estado:     Notas:')
         for tarea in tareas_guadadas:
             tarea_tex=self.prioridades(tarea['prioridad'])+'\t'+tarea['nombre']+'\t'+self.completada(tarea['completada'])+'\t'+tarea['nota']            
             print(tarea_tex)            
         input('Pulse intro para continuar')
+
+    def mostrar_una_tarea(self, tarea):
+        print('Prioridad:   Nombre:      Estado:     Notas:')
+        tarea_tex=self.prioridades(tarea['prioridad'])+'\t'+tarea['nombre']+'\t'+self.completada(tarea['completada'])+'\t'+tarea['nota']            
+        print(tarea_tex)  
+
         
     def muestra_reducida_tareas(self):
-        # self.limpiar()
+        self.limpiar()
         tareas_guadadas= self.manejador.tareas_a_diccionario()
         print('id\tNombre:')
         for tarea in tareas_guadadas:
@@ -88,7 +94,7 @@ class Menu:
 
 
     def añadir_tareas(self):
-        # self.limpiar()
+        self.limpiar()
         nombre=input('Nombre Tarea:')
         print('-1 Baja\n0 Normal\n1 Alta\n3 o mas: Para Ayer')
         prioridad=self.comprobar_entrada('Prioridad',4)    
@@ -122,8 +128,14 @@ class Menu:
     def eliminar_tarea(self):
         self.muestra_reducida_tareas()
         opc=input('Introduce el numero de la tarea: ')
-        opc=self.comprobar_numero(opc)
-        self.manejador.eliminar_tarea(opc)
+        tarea_id=self.comprobar_numero(opc)
+        print(Fore.RED+'Atencion va a eliminar una tarea:')
+       
+        opc=input(Fore.RED+'Esta seguro S/N:')
+        if opc.lower()=='s':
+                   self.manejador.eliminar_tarea(tarea_id)
+        elif opc.lower()=='n':
+            print('No se elimina la tarea')
         input('Presione intro para continuar')
         
     
