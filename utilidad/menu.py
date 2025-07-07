@@ -21,7 +21,7 @@ class Menu:
 
     def inicio(self):
             while True:
-                # self.limpiar()
+                self.limpiar()
                 print(
                     Fore.GREEN+
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
