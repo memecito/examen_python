@@ -21,7 +21,7 @@ class Menu:
 
     def inicio(self):
             while True:
-                self.limpiar()
+                # self.limpiar()
                 print(
                     Fore.GREEN+
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
@@ -52,7 +52,7 @@ class Menu:
         tareas_guadadas= self.manejador.tareas_a_diccionario()
         print('Prioridad:   Nombre:      Estado:     Notas:')
         for tarea in tareas_guadadas:
-            tarea_tex=self.prioridades(tarea['prioridad'])+'\t'+tarea['nombre']+'\t'+self.completada(tarea['completada'])+'\t'+tarea['nota']            
+            tarea_tex=self.prioridades(tarea['prioridad'])+'\t'+tarea['nombre']+'\t'+self.completada(tarea['completada'])+'\t'+Fore.WHITE+tarea['nota']            
             print(tarea_tex)            
         input('Pulse intro para continuar')
 
@@ -86,7 +86,7 @@ class Menu:
             return int(opc)
         else:
             print(Fore.RED+'Opcion no valida, intentelo de nuevo')
-            opc=input(texto)
+            opc=input()
             self.comprobar_numero(opc)
         return -1
     
@@ -97,16 +97,21 @@ class Menu:
         self.limpiar()
         nombre=input('Nombre Tarea:')
         print('-1 Baja\n0 Normal\n1 Alta\n3 o mas: Para Ayer')
-        prioridad=self.comprobar_entrada('Prioridad',4)    
-        self.manejador.añadir_tarea(nombre, prioridad)
+        prioridad=self.comprobar_entrada('Prioridad',4)  
+        nota=input('Desea añadir alguna nota:\n')  
+        self.manejador.añadir_tarea(nombre, prioridad, nota)
 
     def actualizar_tarea(self):
-        print('Qué deseas hacer?\n1-Completar tarea\n2-Modificar tarea\n3-Volver al menu')
-        opc=self.comprobar_entrada('Opcion:',3)
+        print('Qué deseas hacer?\n1-Completar tarea\n2-Modificar tarea\n3-Añadir Nota\n4-Volver al menu')
+        opc=self.comprobar_entrada('Opcion:',4)
         if opc==1:
             self.completar_tarea()
         elif opc==2:
             self.cambiar_nombre()
+        elif opc==3:
+            self.cambiar_nota()
+        elif opc==4:
+            pass
 
     def completar_tarea(self):
         self.muestra_reducida_tareas()
@@ -121,6 +126,21 @@ class Menu:
         opc=self.comprobar_numero(opc)
         nuevo_nombre=input('Introduce nuevo nombre para la tarea:')
         self.manejador.cambiar_nombre(opc,nuevo_nombre)
+
+    def cambiar_nota(self):
+        self.muestra_reducida_tareas()
+        opc=input('Introduce el numero de la tarea: ')
+        opc=self.comprobar_numero(opc)
+        print('Qué deseas hacer?\n1-Añadir a la nota\n2-Nota nueva\n3-Volver al menu')
+        opc=self.comprobar_entrada('Opcion:',4)
+        if opc==1:
+            nota=input('Añade a la nota\n')
+            self.manejador.añadir_nota(opc, nota)
+        elif opc==2:
+            nota=input('Introduce nota nueva:\n')
+            self.manejador.nota_nueva(opc,nota)
+        elif opc==3:
+            pass
 
 
         
@@ -156,7 +176,7 @@ class Menu:
             result='Normal'
         elif num==1:
             result=Fore.BLUE+'Alta'
-        elif num>=2:
+        elif num>=3:
             result=Fore.RED+'Para ayer'
         else:
             result='Vaya, no tienes prisas...'

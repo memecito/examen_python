@@ -13,14 +13,14 @@ class ManejadorTarea:
         # creamos una tarea para cada item de la lista pasada
         self.tareas = [ Tarea.desde_diccionario(t) for t in tareas]
         
-    def añadir_tarea(self, nombre,  prioridad):
+    def añadir_tarea(self, nombre,  prioridad, nota):
         # si dejaramos como identificador la longitud puede darse el caso de tener identificadores repetidos
         if len(self.tareas)==0:
             id=0
         else:
             id=self.tareas[len(self.tareas)-1].id
         id+=1
-        nueva_tarea=Tarea(id,nombre, prioridad)
+        nueva_tarea=Tarea(id,nombre, prioridad, nota)
         self.tareas.append(nueva_tarea)
         
     # def eliminar_tarea(self, tarea_id):
@@ -62,6 +62,21 @@ class ManejadorTarea:
             if tarea.id==id_tarea:
                 tarea.nombre=nombre
             tareas_completadas.append(tarea)
+
+    def añadir_nota(self, id_tarea:int, nota:str):
+        tareas_notas=[]
+        for tarea in self.tareas:
+            if tarea.id==id_tarea:
+                tarea.nota+=nota+'\n'
+            tareas_notas.append(tarea)
+
+    def nota_nueva(self, id_tarea:int, nota:str):
+        tareas_notas=[]
+        for tarea in self.tareas:
+            if tarea.id==id_tarea:
+                tarea.nota=nota+'\n'
+            tareas_notas.append(tarea)
+    
         
     def tareas_a_diccionario(self):
         return [tarea.a_diccionario() for tarea in self.tareas]        
