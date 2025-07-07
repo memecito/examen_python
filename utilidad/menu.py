@@ -27,16 +27,16 @@ class Menu:
                     "Gestion de Tareas ¿qué deseas hacer hoy?\nMenú\n1-Ver tareas\n2-Añadir tarea\n3-Editar tarea\n4-Eliminar tarea\n5-Salir"
                 )
                 try: 
-                    opc = input()
-                    if opc=='1':
+                    opc = self.comprobar_entrada('',5)
+                    if opc==1:
                         self.mostrar_tareas()
-                    elif opc=='2':
+                    elif opc==2:
                         self.añadir_tareas()
-                    elif opc=='3':
-                        pass
-                    elif opc=='4':
-                        pass
-                    elif opc=='5':
+                    elif opc==3:
+                        self.actualizar_tarea()
+                    elif opc==4:
+                        self.eliminar_tarea()
+                    elif opc==5:
                         self.cerrar_programa()
                         break
                 except Exception as e:
@@ -45,12 +45,7 @@ class Menu:
                 
    
             
-    def añadir_tareas(self):
-        # self.limpiar()
-        nombre=input('Nombre Tarea:')
-        print('-1 Baja\n0 Normal\n1 Alta\n3 o mas: Para Ayer')
-        prioridad=input('Prioridad:')       
-        self.manejador.añadir_tarea(nombre, prioridad)
+  
 
     def mostrar_tareas(self):
         # self.limpiar()
@@ -66,13 +61,68 @@ class Menu:
         tareas_guadadas= self.manejador.tareas_a_diccionario()
         print('id\tNombre:')
         for tarea in tareas_guadadas:
-            tarea_tex=tarea['id']+'\t'+tarea['nombre']      
-            print(tarea_tex)            
+            # tarea_tex=tarea['id']+'\t'+tarea['nombre']      
+            print( f'{tarea['id']} \t{tarea['nombre']}' )    
+
+    def comprobar_entrada(self,texto:str,opciones:int)->int:
+        opc_tex=input(texto)
+        opc=self.comprobar_numero(opc_tex)
+        if opc!=-1:
+            if opc<=opciones:
+                return opc
+            else:
+                print(Fore.RED+'Opcion no valida, intentelo de nuevo')
+                self.comprobar_entrada(texto,opciones)
+        return -1
+    
+    def comprobar_numero(self,opc:str)->int:
+        if opc.isnumeric():
+            return int(opc)
+        else:
+            print(Fore.RED+'Opcion no valida, intentelo de nuevo')
+            opc=input(texto)
+            self.comprobar_numero(opc)
+        return -1
+    
+        
+
+
+    def añadir_tareas(self):
+        # self.limpiar()
+        nombre=input('Nombre Tarea:')
+        print('-1 Baja\n0 Normal\n1 Alta\n3 o mas: Para Ayer')
+        prioridad=self.comprobar_entrada('Prioridad',4)    
+        self.manejador.añadir_tarea(nombre, prioridad)
+
+    def actualizar_tarea(self):
+        print('Qué deseas hacer?\n1-Completar tarea\n2-Modificar tarea\n3-Volver al menu')
+        opc=self.comprobar_entrada('Opcion:',3)
+        if opc==1:
+            self.completar_tarea()
+        elif opc==2:
+            self.cambiar_nombre()
+
+    def completar_tarea(self):
+        self.muestra_reducida_tareas()
+        opc=input('Introduce el numero de la tarea: ')
+        opc=self.comprobar_numero(opc)
+        self.manejador.completar_tareas(opc)
+        self.mostrar_tareas()
+    
+    def cambiar_nombre(self):
+        self.muestra_reducida_tareas()
+        opc=input('Introduce el numero de la tarea: ')
+        opc=self.comprobar_numero(opc)
+        nuevo_nombre=input('Introduce nuevo nombre para la tarea:')
+        self.manejador.cambiar_nombre(opc,nuevo_nombre)
+
+
         
         
     def eliminar_tarea(self):
         self.muestra_reducida_tareas()
         opc=input('Introduce el numero de la tarea: ')
+        opc=self.comprobar_numero(opc)
         self.manejador.eliminar_tarea(opc)
         input('Presione intro para continuar')
         
@@ -89,19 +139,19 @@ class Menu:
         num=int(num)
         result=''
         if num==-1:
-            result='Baja'
+            result= 'Baja'
         elif num==0:
             result='Normal'
         elif num==1:
-            result='Alta'
+            result=Fore.BLUE+'Alta'
         elif num>=2:
-            result='Para ayer'
+            result=Fore.RED+'Para ayer'
         else:
             result='Vaya, no tienes prisas...'
         return result
     
     def completada(otro,estado:bool)->str:
         if estado==True:
-            return 'Completada'
+            return Fore.GREEN+'Completada'
         else:
-            return 'Sin Completar'
+            return Fore.RED+'Sin Completar'

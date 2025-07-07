@@ -2,6 +2,7 @@
 # Definicion de clase para la entidad tarea
 class Tarea:
 
+    id:int
     nombre: str = ""
     class_prioridad = {"0": "Normal", "1": "Baja", "2": "Urgente", "3": "Ayer"}
     prioridad: int
