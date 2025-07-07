@@ -46,6 +46,9 @@ class ManejadorTarea:
     def ver_tareas(self):
         return self.tareas
     
+    def tareas_sin_completar(self):
+        return [tarea for tarea in self.tareas if not tarea.completada]
+    
  
             
     
